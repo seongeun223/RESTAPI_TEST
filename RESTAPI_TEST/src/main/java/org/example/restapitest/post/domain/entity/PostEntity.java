@@ -1,6 +1,8 @@
 package org.example.restapitest.post.domain.entity;
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.restapitest.comment.domain.entity.CommentEntity;
+import java.util.List;
 
 @Entity(name = "post")
 @Table(name = "Post")
@@ -24,4 +26,6 @@ public class PostEntity {
     private String content;
 
 
+    @OneToMany(mappedBy = "postId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<CommentEntity> comment;
 }
