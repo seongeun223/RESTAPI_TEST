@@ -65,5 +65,15 @@ public class CommentController {
                 .body(new ResponseMessage(HttpStatus.CREATED, savedComment.getPostId().getPostId()+"번 게시글의 댓글 등록 성공~!", responseMap));
     }
 
+    // 댓글 삭제
+    @DeleteMapping("/{commentId}")
+    @Operation(summary = "댓글 삭제")
+    public ResponseEntity<ResponseMessage> deleteComment(@PathVariable int commentId) {
+        commentService.deleteComment(commentId);
+
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT) // 204 상태 코드 반환
+                .body(new ResponseMessage(HttpStatus.NO_CONTENT, "댓글 삭제 성공"));
+    }
 
 }
