@@ -12,9 +12,8 @@ import java.util.Date;
 @ToString
 public class CommentDTO {
 
-    private int commentId;
-    private PostEntity postId;
-    private String content;
-    private Date createDate;
+    private int commentId; // 댓글 ID
+    private String content; // 댓글 내용
+    private Date createDate; // 생성 일자 (수정하지 않음)
 
 }

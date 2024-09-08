@@ -3,6 +3,7 @@ package org.example.restapitest.comment.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.restapitest.comment.domain.dto.CommentDTO;
 import org.example.restapitest.comment.domain.dto.CreateCommentDTO;
 import org.example.restapitest.comment.domain.entity.CommentEntity;
 import org.example.restapitest.comment.service.CommentService;
@@ -63,6 +64,20 @@ public class CommentController {
         return ResponseEntity
                 .created(URI.create("/comments/" + savedComment.getCommentId()))
                 .body(new ResponseMessage(HttpStatus.CREATED, savedComment.getPostId().getPostId()+"번 게시글의 댓글 등록 성공~!", responseMap));
+    }
+
+    // 댓글 수정
+    @Operation(summary = "댓글 수정")
+    @PutMapping("/{commentId}")
+    public ResponseEntity<ResponseMessage> modifyPost(@PathVariable int commentId, @RequestBody CommentDTO modifyInfo) {
+
+        CommentEntity updatedComment = commentService.updateComment(commentId, modifyInfo);
+
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("comment", updatedComment);
+
+        return ResponseEntity
+                .ok(new ResponseMessage(HttpStatus.OK, "댓글 수정 성공", responseMap));
     }
 
     // 댓글 삭제
